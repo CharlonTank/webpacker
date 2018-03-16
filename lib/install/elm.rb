@@ -25,7 +25,6 @@ say "Copying Elm app file to #{Webpacker.config.source_path}"
 copy_file "#{__dir__}/examples/elm/Main.elm",
   "#{Webpacker.config.source_path}/Main.elm"
 
-
 say "Updating webpack paths to include .elm file extension"
 insert_into_file Webpacker.config.config_path, "    - .elm\n", after: /extensions:\n/
 
