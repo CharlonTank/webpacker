@@ -1,5 +1,10 @@
 require "webpacker/configuration"
 
+say "Installing all Elm dependencies"
+run "yarn add elm elm-webpack-loader"
+run "yarn add --dev elm-hot-loader"
+run "yarn run elm-install"
+
 say "Copying elm loader to config/webpack/loaders"
 copy_file "#{__dir__}/loaders/elm.js", Rails.root.join("config/webpack/loaders/elm.js").to_s
 
@@ -20,10 +25,6 @@ say "Copying Elm app file to #{Webpacker.config.source_path}"
 copy_file "#{__dir__}/examples/elm/Main.elm",
   "#{Webpacker.config.source_path}/Main.elm"
 
-say "Installing all Elm dependencies"
-run "yarn add elm elm-webpack-loader"
-run "yarn add --dev elm-hot-loader"
-run "yarn run elm-install"
 
 say "Updating webpack paths to include .elm file extension"
 insert_into_file Webpacker.config.config_path, "    - .elm\n", after: /extensions:\n/
